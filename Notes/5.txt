@@ -1,0 +1,96 @@
+Lecture- 49
+
+Special Note about Destroy Lifecycle and Prototype Scope
+There is a subtle point you need to be aware of with "prototype" scoped beans.
+
+For "prototype" scoped beans, Spring does not call the destroy method.  Gasp!
+
+
+
+---
+
+In contrast to the other scopes, Spring does not manage the complete lifecycle of a prototype bean: the
+container instantiates, configures, and otherwise assembles a prototype object, and hands it to the client,
+with no further record of that prototype instance.
+
+Thus, although initialization lifecycle callback methods are called on all objects regardless of scope,
+in the case of prototypes, configured destruction lifecycle callbacks are not called. The client code must
+clean up prototype-scoped objects and release expensive resources that the prototype bean(s) are holding.
+
+
+
+---
+
+This also applies to both XML configuration and Annotation-based configuration.
+
+
+
+---
+
+QUESTION: How can I create code to call the destroy method on prototype scope beans
+
+
+
+ANSWER:
+
+You can destroy prototype beans but custom coding is required.
+
+You can download the example source code from here: destroy-prototype-scope-bean-with-custom-processor-xml-config.zip
+
+
+
+Development Process
+
+1. Create a custom bean processor. This bean processor will keep track of prototype scoped beans. During shutdown
+it will call the destroy() method on the prototype scoped beans. The custom processor is configured in the spring
+config file.
+
+
+
+	<!-- Bean custom processor to handle calling destroy methods on prototype scoped beans -->
+        <bean id="customProcessor"
+    		class="com.luv2code.springdemo.MyCustomBeanProcessor">
+   	</bean>
+
+
+
+
+2. The prototype scoped beans MUST implement the DisposableBean interface. This interface defines a "destroy()" method.
+
+
+
+public class TrackCoach implements Coach, DisposableBean {
+
+	...
+
+	// add a destroy method
+	@Override
+	public void destroy() throws Exception {
+		System.out.println("TrackCoach: inside method doMyCleanupStuffYoYo");
+	}
+
+}
+
+
+
+
+3. The Spring configuration does not require use the destroy-method attribute. You can safely remove it.
+
+
+
+ 	<bean id="myCoach"
+ 		class="com.luv2code.springdemo.TrackCoach"
+ 		init-method="doMyStartupStuff"
+ 		scope="prototype">
+
+ 		<!-- set up constructor injection -->
+ 		<constructor-arg ref="myFortuneService" />
+ 	</bean>
+
+
+
+
+4. In this app, BeanLifeCycleDemoApp.java is the main program.  TrackCoach.java is the prototype scoped bean.
+TrackCoach implements the DisposableBean interface and provides the destroy() method. The custom bean processing
+is handled in the MyCustomBeanProcessor class.
+

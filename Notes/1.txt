@@ -1,0 +1,17 @@
+Question 1:
+Why do we specify the Coach interface in getBean()?
+
+Answer:
+Coach theCoach = context.getBean("myTrackCoach", Coach.class);
+
+When we pass the interface to the method, behind the scenes Spring will cast the object for you.
+
+context.getBean("myTrackCoach", Coach.class)
+
+However, there are some slight differences than normal casting.
+
+From the Spring docs:
+
+Behaves the same as getBean(String), but provides a measure of type safety by throwing a BeanNotOfRequiredTypeException
+if the bean is not of the required type. This means that ClassCastException can't be thrown on casting the result
+correctly, as can happen with getBean(String).
