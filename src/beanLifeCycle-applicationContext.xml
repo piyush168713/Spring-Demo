@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- Add a logger config to see logging messages.
+	- For more detailed logs, set values to "FINEST"
+	- For info on logging levels, see: http://www.vogella.com/tutorials/Logging/article.html -->
+    <bean id="myLoggerConfig" class="com.luv2code.springdemo.MyLoggerConfig" init-method="initLogger">
+        <property name="rootLoggerLevel" value="FINE" />
+        <property name="printedLoggerLevel" value="FINE"/>
+    </bean>
+
+
+    <!-- Define the beans here -->
+
+    <!-- this id name will same in HelloSpringApp.java file -->
+
+    <!-- for HappyFortuneService class-->
+    <bean id="myFortune"
+          class="com.luv2code.springdemo.HappyFortuneService">
+    </bean>
+
+    <!-- for RandomFortuneService class-->
+    <bean id="randomFortune"
+          class="com.luv2code.springdemo.RandomFortuneService">
+    </bean>
+
+        <!--here scope="singleton" is default-->
+    <bean id="myCoach"
+          class="com.luv2code.springdemo.TrackCoach"
+          init-method="doMyStartupStuff"
+          destroy-method="destroy"
+            scope="prototype">
+        <constructor-arg ref="myFortune" />
+    </bean>
+
+
+    <!-- Bean custom processor to handle calling destroy methods on prototype scoped beans -->
+    <bean id="customProcessor"
+          class="com.luv2code.springdemo.MyCustomBeanProcessor">
+    </bean>
+
+
+
+</beans>
