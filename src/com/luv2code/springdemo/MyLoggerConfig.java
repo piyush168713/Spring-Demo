@@ -39,7 +39,7 @@ public class MyLoggerConfig {
         consoleHandler.setLevel(printedLevel);
         consoleHandler.setFormatter(new SimpleFormatter());
 
-        // add handler to the logger
+        // add handler to the logger 
         loggerParent.addHandler(consoleHandler);
     }
 }
