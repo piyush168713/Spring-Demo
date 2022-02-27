@@ -18,6 +18,7 @@ public class BeanScopeDemoApp {
         // check if they are same
         boolean result = (theCoach == alphaCoach);
 
+        
         // print out the result
         System.out.println("\nPointing to the same Object: " + result);
 
