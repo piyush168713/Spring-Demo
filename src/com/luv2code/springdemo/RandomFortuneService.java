@@ -11,7 +11,7 @@ public class RandomFortuneService implements FortuneService {
         int digit = (int) (Math.random() * 10);
         if (digit <= 2) {
             return fortunes[digit];
-        } else {
+        } else { 
             return getFortune();
         }
     }
