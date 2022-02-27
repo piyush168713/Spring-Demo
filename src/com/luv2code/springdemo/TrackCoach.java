@@ -36,12 +36,12 @@ public class TrackCoach implements Coach, DisposableBean {
     }
 
     // add a destroy method
-    public void doMyCleanupStuff() {
+    public void doMyCleanupStuff() {                          // used for singleton beans
         System.out.println("TrackCoach: inside method doMyCleanupStuff");
     }
 
     @Override
-    public void destroy() throws Exception {
+    public void destroy() throws Exception {                  // used for prototype beans
         System.out.println("Track Coach: inside method destroy");
     }
 
