@@ -28,7 +28,6 @@ public class MyCustomBeanProcessor implements BeanPostProcessor, BeanFactoryAwar
             }
         }
         return bean;
-
     }
 
     @Override
