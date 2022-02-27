@@ -8,7 +8,6 @@ public class BeanLifeCycleDemoApp {
         // load the spring configuration file
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beanLifeCycle-applicationContext.xml");
 
-
         // retrieve bean from spring container
         Coach theCoach = context.getBean("myCoach", Coach.class);
 
