@@ -36,7 +36,6 @@ public class CricketCoach implements Coach{
         this.team = team;
     }
 
-
     // setter method for injections
     public void setFortuneService(FortuneService fortuneService) {
         System.out.println("CricketCoach: inside setter method");
