@@ -10,6 +10,7 @@ public class CricketCoach implements Coach{
     private String emailAddress;
     private String team;
 
+    
     // create a no-arg constructor coz spring's gonna actually call this constructor when they make a reference to our bean.
     public CricketCoach(){
         System.out.println("CricketCoach: inside no-arg constructor");
